@@ -50,6 +50,10 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user = User::findOrFail($id);
+        $user->update($request->all());
+
+        return json_encode($user);
 
     }
 
@@ -61,6 +65,9 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+        return response(['resource successfully destroyed', 200])
+            ->header('Content-Type', 'text/plain');
     }
 }
