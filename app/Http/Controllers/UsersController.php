@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -13,7 +14,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        return json_encode(User::all());
     }
 
     /**
@@ -24,7 +25,9 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new User(['name' => $request->name, 'email' => $request->email, 'password' => $request->password]);
+        $user->save();
+        return json_encode($user);
     }
 
     /**
@@ -35,7 +38,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+        return json_encode(User::findOrFail($id));
     }
 
     /**
@@ -47,7 +50,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**
