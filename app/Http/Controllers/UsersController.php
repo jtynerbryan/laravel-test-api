@@ -38,4 +38,10 @@ class UsersController extends Controller
 
         return response()->json(null, 204);
     }
+
+    // get user's posts
+    public function posts(User $user)
+    {
+        return response()->json($user->posts, 200);
+    }
 }

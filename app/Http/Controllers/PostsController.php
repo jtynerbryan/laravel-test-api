@@ -15,7 +15,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        //
+        return Post::all();
     }
 
     /**
@@ -26,15 +26,9 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        $post = new Post([
-            'title' => $request->title,
-            'body' => $request->body,
-            'user_id' => $request->user_id,
-        ]);
+        $post = Post::create($request->all());
 
-        $post->save();
-
-        return json_encode($post);
+        return response()->json($post, 201);
     }
 
     /**
@@ -43,11 +37,9 @@ class PostsController extends Controller
      * @param  int  $user_id
      * @return \Illuminate\Http\Response
      */
-    public function show($user_id)
+    public function show(Post $post)
     {
-        $user = User::findOrFail($user_id);
-        $posts = $user->posts;
-        return json_encode($posts);
+        return response()->json($post, 200);
     }
 
     /**
