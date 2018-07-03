@@ -16,15 +16,12 @@ class AuthController extends Controller
             'password' => 'required|confirmed|min:6',
         ]);
 
-        $request->password = Hash::make($request->password);
+        $input = $request->all();
+        $input['password'] = Hash::make($input['password']);
 
-        $user = User::create($request->all());
+        $user = User::create($input);
 
-        $token = $user->createToken('Token Name')->accessToken;
-
-        $data = ['user' => $user, 'access_token' => $token];
-
-        return response()->json($data, 201);
+        return response()->json($user, 201);
 
     }
 }
