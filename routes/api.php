@@ -1,12 +1,12 @@
 <?php
 
-use App\User;
-use Illuminate\Http\Request;
+// Auth Routes
+Route::post('login', 'AuthController@login');
+Route::post('register', 'AuthController@register');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// protected routes
+Route::middleware('auth:api')->group(function () {
+    Route::apiResource('users', 'UsersController');
+    Route::get('users/{user}/posts', 'UsersController@posts');
+    Route::apiResource('posts', 'PostsController');
 });
-
-Route::apiResource('users', 'UsersController');
-Route::get('users/{user}/posts', 'UsersController@posts');
-Route::apiResource('posts', 'PostsController');
