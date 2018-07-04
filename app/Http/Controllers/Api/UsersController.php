@@ -13,13 +13,6 @@ class UsersController extends Controller
         return User::all();
     }
 
-    public function store(Request $request)
-    {
-        $user = User::create($request->all());
-
-        return response()->json($user, 201);
-    }
-
     public function show(User $user)
     {
         return response()->json($user, 200);
